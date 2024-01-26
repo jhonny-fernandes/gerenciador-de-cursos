@@ -1,0 +1,25 @@
+.btn-loader 
+{
+    width: 70px;
+}
+
+.d-none
+{
+    display: none;
+    transition: 0.2 all;
+}
+
+.d-block 
+{
+    display: block;
+    transition: 0.2 all;
+}
+
+.center
+{
+    text-align: center;
+}
+
+.msg-alert{
+    margin-top: 10px;
+}
