@@ -295,7 +295,7 @@
         $(".btn-salvar").on("click", function(e)
         {
             e.preventDefault();
-            var formUpdate = $('formUpdate')[0];
+            var formUpdate = $('#formUpdate')[0];
             var formData = new FormData(formUpdate);         // CRIA O ELEMENTO
             
             $.ajax({
@@ -312,7 +312,7 @@
                 },
                 success: function(resUpdate)
                 {
-                    console.log(resUpdate);
+                    $(".test").html(resUpdate);
                 }, 
                 error: function()
                 {
