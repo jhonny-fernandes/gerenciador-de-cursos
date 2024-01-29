@@ -96,9 +96,9 @@
                                 </div>
 
                             <div class="col-md-6 mb-3">
-                                <label for="capa">Arquivo</label>
-                            
-                                <input type="file" id="arquivo" name="arquivo">
+                                <label for="capa">Arquivo</label><br>
+                                
+                                <input type="file" id="arquiv" name="arquivo" class="arquiv">
                             </div>
 
                             <div class="col-md-12 mb-3">
@@ -147,7 +147,7 @@
 
                                     <div class="col-md-6 mb-3">
                                         <label for="preco">Preço</label>
-                                        <input type="text" class="form-control preco" id="preco" name="preco" placeholder="" value="">
+                                        <input type="text" class="form-control preco" name="preco" id="preco" class="preco" placeholder="" value="">
                                     </div>
 
                                     <div class="col-md-6 mb-3">
@@ -160,9 +160,9 @@
                                     </div>
 
                                     <div class="col-md-6 mb-3">
-                                        <label for="capa">Arquivo</label>
-                                        
-                                        <input type="file" id="arquivo" class="arquivo" name="arquivo" value="">
+                                        <label>Arquivo</label> <br>
+                                        <input type="file" id="arquivo" class="arquiv" name="arquivo">
+
                                     </div>
                                 <div class="col-md-12 mb-3">
                                     <label for="descricao">Descrição</label>
@@ -213,7 +213,6 @@
     </body>
     
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script> 
-    <script src="jquery.mask.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
 <script>
@@ -280,14 +279,14 @@
                 let id        = document.querySelector(".id"); 
                 let nome      = document.querySelector(".nome");
                 let preco     = document.querySelector(".preco");
-                let arquivo   = document.querySelector(".arquivo");
+               let img        = document.querySelector(".ak");
                 let descricao = document.querySelector(".descricao");
 
                 id.value        = listResponse.id;
                 nome.value      = listResponse.nome;
                 descricao.value = listResponse.descricao;
                 preco.value     = listResponse.preco;
-
+               $(".ar").html(listResponse.arquivo);
                 $("#editProcuts").modal('show');  
             }
         });
@@ -323,44 +322,7 @@
     });
         
 
-     /* -- SALVAR -- */
-        // $(".btn-salvar").on("click", function(e){
-        //     e.preventDefault();
-            
-        //     var formUpdate = $('formUpdate')[0];              // CAPTURA ELEMENTOS DO FORMULÁRIO
-        //     var formData = new FormData(formUpdate);    // CRIA O ELEMENTO
-        //     var ajaxUrl = "update.php";
-
-        //     $.ajax({
-        //         url : ajaxUrl,
-        //         type : "POST",
-        //         data : formData,
-           
-        //         contentType : false,
-        //         processData : false, 
-
-        //         beforeSend: function(){
-        //             $(".btn-loader").removeClass("d-none");
-        //             $(".btn-salvar").addClass("d-none");
-        //         },success(responseUpdate){
-        //             $(".message").show();
-        //             $(".message").html(responseUpdate);
-        //             $(".btn-loader").addClass("d-none");
-        //             $(".btn-salvar").removeClass("d-none"); 
-        //         getProdutos();
-                
-        //     },error(response){
-        //         $("#message").show();
-        //         $(".btn-loader").addClass("d-none");
-        //         $(".btn-salvar").removeClass("d-none"); 
-        //     }
-        //     });
-           
-        // });
-    /* -- END SALVAR -- */
-
-
-    
+    /* -- END EDITAR E SALVAR -- */
 
     /* -- DELETAR -- */
 
@@ -425,5 +387,7 @@
         getProdutos();
         //$("#list").load(location.href + "#list");
     });  
+
+   
 </script>
     

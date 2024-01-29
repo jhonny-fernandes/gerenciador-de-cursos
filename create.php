@@ -6,7 +6,7 @@ $nome      = filter_var($_POST['nome'], FILTER_SANITIZE_SPECIAL_CHARS);
 $estado    = filter_var($_POST['estado'], FILTER_SANITIZE_SPECIAL_CHARS);
 $preco     = filter_var($_POST['preco'], FILTER_SANITIZE_NUMBER_INT);
 $descricao = filter_var($_POST['descricao'], FILTER_SANITIZE_SPECIAL_CHARS);
-
+var_dump($preco);
 $dirUpload = "upload/";
 
 $extensaoArquivo = strrchr($_FILES['arquivo']['name'], '.');             // FAZENDO UMA BUSCA PELA EXTENSÃO
