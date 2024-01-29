@@ -33,7 +33,7 @@
                         <?php 
                             if( $totRegisters->rowCount() == 0 )
                             {
-                                echo "<p class='movie-txt center'> Não existem produtos para serem exibidos </p>";
+                                echo "<p class='movie-txt'> Não existem produtos para serem exibidos </p>";
                             }   else 
                             {
                                 while( $results = $execResults->fetch(PDO::FETCH_ASSOC))
@@ -78,12 +78,12 @@
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <label for="firstName">Nome do Produto</label>
-                                <input type="text" class="form-control nome" name="nome" id="nome">
+                                <input type="text" class="form-control" name="nome" id="nome">
                                 </div>
 
                                 <div class="col-md-6 mb-3">
                                     <label for="preco">Preço</label>
-                                    <input type="text" class="form-control preco" id="preco" name="preco" placeholder="">
+                                    <input type="text" class="form-control" id="preco" name="preco" placeholder="">
                                 </div>
 
                                 <div class="col-md-6 mb-3">
@@ -135,13 +135,14 @@
                     </button>
                 </div>
                     <div class="modal-body">
+                        <div class="test"></div>
                         <div class="center msg-alert message" style="display:none;">  </div>
                             <form id="formUpdate" method="post" enctype="multipart/form-data" class="formUpdate">
                               <div class="row">
                                 <div class="col-md-12 mb-3 cap">
-                                <input type="text" class="form-control nome" name="id" id="id"><br>
+                                <input type="text" class="form-control id" name="id" id="id"><br>
                                     <label for="firstName">Nome do Produto</label>
-                                    <input type="text" class="form-control nome" name="nome" id="nome">
+                                    <input type="text" class="form-control nome" name="nome">
                                     </div>
 
                                     <div class="col-md-6 mb-3">
@@ -161,11 +162,11 @@
                                     <div class="col-md-6 mb-3">
                                         <label for="capa">Arquivo</label>
                                         
-                                        <input type="file" id="arquivo" name="arquivo" value="">
+                                        <input type="file" id="arquivo" class="arquivo" name="arquivo" value="">
                                     </div>
                                 <div class="col-md-12 mb-3">
                                     <label for="descricao">Descrição</label>
-                                    <textarea class="form-control" id="descricao" name="descricao" rows="3">  </textarea>
+                                    <textarea class="form-control descricao" id="descricao" name="descricao" rows="3">  </textarea>
                                 </div>
                             </div>
                             
@@ -261,39 +262,66 @@
         $(".message").hide();
     });
     
+    
+    $(".editBtn").on("click", function(e){
+        e.preventDefault();
+        let product_id = $(this).val(); 
 
-        // ABRE O MODAL PARA EDITAR
-        $(".editBtn").on("click", function(e){
-            e.preventDefault();
-            var product_id = $(this).val(); 
+        $.ajax({
+            url: 'read.php',
+            type: 'POST',
+            dataType: 'html',
+            data: {id:product_id},
+
+            success: function(responseList) 
+            {
+                const listResponse = JSON.parse(responseList); // CONVERTENDO STRING PARA OBJETO
             
-            $("#editProcuts").modal('show');
-            
-        
+                let id        = document.querySelector(".id"); 
+                let nome      = document.querySelector(".nome");
+                let preco     = document.querySelector(".preco");
+                let arquivo   = document.querySelector(".arquivo");
+                let descricao = document.querySelector(".descricao");
 
-            $("#formUpdate").submit(function(e){
-                e.preventDefault();
+                id.value        = listResponse.id;
+                nome.value      = listResponse.nome;
+                descricao.value = listResponse.descricao;
+                preco.value     = listResponse.preco;
 
-                $.ajax({
-                    url: 'update.php',
-                    method: 'POST',
-                    data: new FormData(this),
-                    contentType : false,
-                    processData : false, 
-
-                    beforeSend: function(){
-
-                    }, 
-                    success: function(responseUpdate){
-                        $(".message").show();
-                        $(".message").html(responseUpdate);
-                    },
-                    error: function(){
-
-                    }
-                });
-            })
+                $("#editProcuts").modal('show');  
+            }
         });
+
+        $(".btn-salvar").on("click", function(e)
+        {
+            e.preventDefault();
+            var formUpdate = $('formUpdate')[0];
+            var formData = new FormData(formUpdate);         // CRIA O ELEMENTO
+            
+            $.ajax({
+                url : 'update.php',
+                type : "POST",
+                data : formData,
+                
+                contentType : false,
+                processData : false,
+        
+                beforeSend: function()
+                {
+
+                },
+                success: function(resUpdate)
+                {
+                    console.log(resUpdate);
+                }, 
+                error: function()
+                {
+                    
+                }
+            });
+        });
+    });
+        
 
      /* -- SALVAR -- */
         // $(".btn-salvar").on("click", function(e){

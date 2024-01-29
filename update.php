@@ -5,7 +5,8 @@
 /* -- UPDATE-- */
 
 $id = $_POST['id'];
-var_dump($id);
+$nome = $_POST['nome'];
+var_dump($id, $nome);
 
 // $id        = $_GET['id'];
  

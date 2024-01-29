@@ -6,7 +6,6 @@ require "./conexao.php";
 
 $id = $_POST['id'];
 
-
 $sqlDelete = "DELETE FROM produtos WHERE id = :id";
 $delete = $conexao->prepare($sqlDelete);
 $delete->bindValue(':id', $id, PDO::PARAM_INT);
