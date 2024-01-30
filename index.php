@@ -140,7 +140,7 @@
                             <form id="formUpdate" method="post" enctype="multipart/form-data" class="formUpdate">
                               <div class="row">
                                 <div class="col-md-12 mb-3 cap">
-                                <input type="text" class="form-control id" name="id" id="id"><br>
+                                    <input type="text" class="form-control d-none id" name="id" id="id"><br>
                                     <label for="firstName">Nome do Produto</label>
                                     <input type="text" class="form-control nome" name="nome">
                                     </div>
@@ -280,14 +280,16 @@
                 let id        = document.querySelector(".id"); 
                 let nome      = document.querySelector(".nome");
                 let preco     = document.querySelector(".preco");
-                
+                let arquivo   = document.querySelector(".arquiv");
                 let descricao = document.querySelector(".descricao");
 
                 id.value        = listResponse.id;
                 nome.value      = listResponse.nome;
                 descricao.value = listResponse.descricao;
                 preco.value     = listResponse.preco;
-                $(".ark").text(listResponse.arquivo);
+                arquivo.src     = listResponse.arquivo;
+                console.log(arquivo);
+                $(".ark").text(listResponse.arquivo.name);
                
                 $("#editProcuts").modal('show');  
                
