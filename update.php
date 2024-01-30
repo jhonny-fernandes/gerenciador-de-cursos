@@ -12,18 +12,19 @@ $descricao = filter_var($_POST['descricao'], FILTER_SANITIZE_SPECIAL_CHARS);
 
 $dirUpload = "upload/";
 
-$extensaoArquivo = strrchr($_FILES['arquivo']['name'], '.');             // FAZENDO UMA BUSCA PELA EXTENSÃO
-$novoNomeArquivo = md5($_FILES['arquivo']['name']).$extensaoArquivo;     // Gera novo nome para o arquivo
 
 if(!is_dir($dirUpload)){    
     echo "<p class='alert alert-danger'> Diretório não encontrado, falha na atualização </p>";
 }  else{
     
-    if( $extensaoArquivo == '.jpg' && $extensaoArquivo == '.png') {
+    if( $extensaoArquivo != '.jpg' && $extensaoArquivo != '.png') {
         echo "<p class='alert alert-danger'> Extensão não aceita, aceitamos: <strong> PNG, JPG </strong> </p>";
     }else{
+       
+
         $nameFileServer = $dirUpload.$novoNomeArquivo;
         move_uploaded_file($_FILES['arquivo']['tmp_name'], $nameFileServer);
+
 
         /* -- UPDATE -- */
             $sqlUpdate = "UPDATE produtos 

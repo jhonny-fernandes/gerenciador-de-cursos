@@ -161,6 +161,7 @@
 
                                     <div class="col-md-6 mb-3">
                                         <label>Arquivo</label> <br>
+                                        <label for="arquivo" class="btn btn-dark btn-sm ark"> Selecione </label>
                                         <input type="file" id="arquivo" class="arquiv" name="arquivo">
 
                                     </div>
@@ -279,15 +280,17 @@
                 let id        = document.querySelector(".id"); 
                 let nome      = document.querySelector(".nome");
                 let preco     = document.querySelector(".preco");
-               let img        = document.querySelector(".ak");
+                
                 let descricao = document.querySelector(".descricao");
 
                 id.value        = listResponse.id;
                 nome.value      = listResponse.nome;
                 descricao.value = listResponse.descricao;
                 preco.value     = listResponse.preco;
-               $(".ar").html(listResponse.arquivo);
+                $(".ark").text(listResponse.arquivo);
+               
                 $("#editProcuts").modal('show');  
+               
             }
         });
 
@@ -307,15 +310,21 @@
         
                 beforeSend: function()
                 {
-
+                    $(".btn-loader").removeClass("d-none");
+                    $(".btn-salvar").addClass("d-none");
                 },
                 success: function(resUpdate)
                 {
-                    $(".test").html(resUpdate);
+                    $(".message").show();
+                    $(".message").html(resUpdate);
+                    $(".btn-loader").addClass("d-none");
+                    $(".btn-salvar").removeClass("d-none");
                 }, 
                 error: function()
                 {
-                    
+                    $("#message").show();
+                    $(".btn-loader").addClass("d-none");
+                    $(".btn-salvar").removeClass("d-none");
                 }
             });
         });

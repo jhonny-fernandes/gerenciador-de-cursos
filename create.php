@@ -6,14 +6,16 @@ $nome      = filter_var($_POST['nome'], FILTER_SANITIZE_SPECIAL_CHARS);
 $estado    = filter_var($_POST['estado'], FILTER_SANITIZE_SPECIAL_CHARS);
 $preco     = filter_var($_POST['preco'], FILTER_SANITIZE_NUMBER_INT);
 $descricao = filter_var($_POST['descricao'], FILTER_SANITIZE_SPECIAL_CHARS);
-var_dump($preco);
+
 $dirUpload = "upload/";
 
 $extensaoArquivo = strrchr($_FILES['arquivo']['name'], '.');             // FAZENDO UMA BUSCA PELA EXTENSÃO
 $novoNomeArquivo = md5($_FILES['arquivo']['name']).$extensaoArquivo;     // Gera novo nome para o arquivo
 
+
 if(!is_dir($dirUpload)){    
     echo "<p class='alert alert-danger'> Diretório não encontrado, falha no upload </p>";
+  
 }  else{
     
     if( $extensaoArquivo != '.jpg' && $extensaoArquivo != '.png') {
@@ -38,6 +40,7 @@ if(!is_dir($dirUpload)){
         $insert->execute();
 
         echo "<p class='alert alert-success'> Cadastro realizado! </p>";
+        
     }
     
 }  
