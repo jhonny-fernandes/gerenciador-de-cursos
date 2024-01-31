@@ -3,8 +3,7 @@
     
     $sqlResults  = "SELECT *FROM produtos";
     $execResults = $conexao->query($sqlResults);
-    $totRegisters = $conexao->query($sqlResults);   // VERIFICA A QUANTIDADE DE PRODUTOS
-    $dirUpload = "upload/";                        // DIRETÓRIO QUE OS ARQUIVOS FORAM SALVOS 
+    $totRegisters = $conexao->query($sqlResults);   // VERIFICA A QUANTIDADE DE PRODUTOS                    // DIRETÓRIO QUE OS ARQUIVOS FORAM SALVOS 
 ?>
 
 <!DOCTYPE html>
@@ -43,11 +42,10 @@
                                             
                                             <figure>
                                                 <a href="">
-                                                <img src="<?=$dirUpload.$results['arquivo']?>" 
-                                                    alt="<?=$results['nome']?>" title="<?=$results['nome']?>" width="220" height="200">
+                                                <img src="<?=$results['arquivo']?>" 
+                                                    alt="<?=$results['nome']?>" title="<?=$results['nome']?>" class="img">
                                                 </a>
                                                 <figcaption class="title"> 
-                                                
                                                 <button type="button" class="btn btn-primary editBtn" value="<?=$results['id']?>"> Editar </button>
                                                 <button type="button" class="btn btn-danger delBtn" value="<?=$results['id']?>"> Deletar </button>
                                                 </figcaption>
@@ -160,11 +158,16 @@
                                     </div>
 
                                     <div class="col-md-6 mb-3">
+                                        <label>Capa - Pré visualização</label> <br>
+                                        <img class="image">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
                                         <label>Arquivo</label> <br>
                                         <label for="arquivo" class="btn btn-dark btn-sm ark"> Selecione </label>
                                         <input type="file" id="arquivo" class="arquiv" name="arquivo">
-
                                     </div>
+
                                 <div class="col-md-12 mb-3">
                                     <label for="descricao">Descrição</label>
                                     <textarea class="form-control descricao" id="descricao" name="descricao" rows="3">  </textarea>
@@ -280,7 +283,7 @@
                 let id        = document.querySelector(".id"); 
                 let nome      = document.querySelector(".nome");
                 let preco     = document.querySelector(".preco");
-                let arquivo   = document.querySelector(".arquiv");
+                let arquivo   = document.querySelector(".image");
                 let descricao = document.querySelector(".descricao");
 
                 id.value        = listResponse.id;
@@ -288,8 +291,9 @@
                 descricao.value = listResponse.descricao;
                 preco.value     = listResponse.preco;
                 arquivo.src     = listResponse.arquivo;
-                console.log(arquivo);
-                $(".ark").text(listResponse.arquivo.name);
+                arquivo.title   = listResponse.nome;
+                
+                $(".ark").text(listResponse.arquivo);
                
                 $("#editProcuts").modal('show');  
                

@@ -32,7 +32,7 @@ if(!is_dir($dirUpload)){
             // LIMPANDO SUJEIRA DE DADOS
         $insert = $conexao->prepare($sqlInsert);
         $insert->bindValue(':nome', $nome, PDO::PARAM_STR);
-        $insert->bindValue(':arquivo', $novoNomeArquivo, PDO::PARAM_STR);
+        $insert->bindValue(':arquivo', $dirUpload.$novoNomeArquivo, PDO::PARAM_STR);
         $insert->bindValue(':descricao',  $descricao, PDO::PARAM_STR);
         $insert->bindValue(':preco',  $preco, PDO::PARAM_STR);
         $insert->bindValue(':estado', $estado, PDO::PARAM_STR);

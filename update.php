@@ -9,9 +9,68 @@ $nome      = filter_var($_POST['nome'], FILTER_SANITIZE_SPECIAL_CHARS);
 $estado    = filter_var($_POST['estado'], FILTER_SANITIZE_SPECIAL_CHARS);
 $preco     = filter_var($_POST['preco'], FILTER_SANITIZE_NUMBER_INT);
 $descricao = filter_var($_POST['descricao'], FILTER_SANITIZE_SPECIAL_CHARS);
-$arquivo   = $_FILES['arquivo'];
-var_dump($arquivo);
 
+$dirUpload = "upload/";
+
+if(!is_dir($dirUpload)){
+    echo "<p class='alert alert-danger'> Diretório não encontrado, falha na atualização </p>";
+}   else{
+
+    if(!empty($_FILES['arquivo'])){
+        $extensaoArquivo = strrchr($_FILES['arquivo']['name'], '.');             // FAZENDO UMA BUSCA PELA EXTENSÃO
+        $novoNomeArquivo = md5($_FILES['arquivo']['name']).$extensaoArquivo;     // Gera novo nome para o arquivo
+        
+        $nameFileServer = $dirUpload.$novoNomeArquivo;
+        move_uploaded_file($_FILES['arquivo']['tmp_name'], $nameFileServer);
+
+
+        /* -- UPDATE -- */
+            $sqlUpdate = "UPDATE produtos 
+                             SET nome= :nome, 
+                                 arquivo= :arquivo, 
+                                 estado=:estado,
+                                 preco= :preco, 
+                                 descricao= :descricao 
+                           WHERE id =:id";
+
+            $update = $conexao->prepare($sqlUpdate);
+
+            $update->bindValue(':id', $id);
+            $update->bindValue(':nome', $nome);
+            $update->bindValue(':arquivo', $dirUpload.$novoNomeArquivo);
+            $update->bindValue(':estado', $estado);
+            $update->bindValue(':preco', $preco);
+            $update->bindValue(':descricao', $descricao);
+            
+
+            $update->execute();
+
+        echo "<p class='alert alert-success'> Produto atualizado com sucesso! </p>";
+    }   else{
+       
+             $sqlUpdate = "UPDATE produtos 
+                             SET nome= :nome, 
+                                 
+                                 estado=:estado,
+                                 preco= :preco, 
+                                 descricao= :descricao 
+                           WHERE id =:id";
+
+            $update = $conexao->prepare($sqlUpdate);
+
+            $update->bindValue(':id', $id);
+            $update->bindValue(':nome', $nome);
+            $update->bindValue(':estado', $estado);
+            $update->bindValue(':preco', $preco);
+            $update->bindValue(':descricao', $descricao);
+            
+
+            $update->execute();
+
+        echo "<p class='alert alert-success'> Produto atualizado com sucesso! </p>";
+    }
+
+}
 
 // $dirUpload = "upload/";
 
@@ -27,35 +86,33 @@ var_dump($arquivo);
 //     }else{
        
 
-//         $nameFileServer = $dirUpload.$novoNomeArquivo;
-//         move_uploaded_file($_FILES['arquivo']['tmp_name'], $nameFileServer);
+        // $nameFileServer = $dirUpload.$novoNomeArquivo;
+        // move_uploaded_file($_FILES['arquivo']['tmp_name'], $nameFileServer);
 
 
-//         /* -- UPDATE -- */
-//             $sqlUpdate = "UPDATE produtos 
-//                              SET nome= :nome, 
-//                                  arquivo= :arquivo, 
-//                                  estado=:estado,
-//                                  preco= :preco, 
-//                                  descricao= :descricao 
-//                            WHERE id =:id";
+        // /* -- UPDATE -- */
+        //     $sqlUpdate = "UPDATE produtos 
+        //                      SET nome= :nome, 
+        //                          arquivo= :arquivo, 
+        //                          estado=:estado,
+        //                          preco= :preco, 
+        //                          descricao= :descricao 
+        //                    WHERE id =:id";
 
-//         // LIMPANDO SUJEIRA DE DADOS
-//             $update = $conexao->prepare($sqlUpdate);
+        // // LIMPANDO SUJEIRA DE DADOS
+        //     $update = $conexao->prepare($sqlUpdate);
 
-//             $update->bindValue(':id', $id);
-//             $update->bindValue(':nome', $nome);
-//             $update->bindValue(':arquivo', $novoNomeArquivo);
-//             $update->bindValue(':estado', $estado);
-//             $update->bindValue(':preco', $preco);
-//             $update->bindValue(':descricao', $descricao);
+        //     $update->bindValue(':id', $id);
+        //     $update->bindValue(':nome', $nome);
+        //     $update->bindValue(':arquivo', $novoNomeArquivo);
+        //     $update->bindValue(':estado', $estado);
+        //     $update->bindValue(':preco', $preco);
+        //     $update->bindValue(':descricao', $descricao);
             
 
-//             $update->execute();
+        //     $update->execute();
 
-        
-
-//         echo "<p class='alert alert-success'> Produto atualizado com sucesso! </p>";
+        // echo "<p class='alert alert-success'> Produto atualizado com sucesso! </p>";
 //     }
     
 // }  

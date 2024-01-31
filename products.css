@@ -20,8 +20,22 @@
     text-align: center;
 }
 
+.box-img{
+    width: 300px;
+    height: auto;
+}
+
+.box-img img 
+{
+    width: 100%;
+    
+}
+
 .msg-alert{
     margin-top: 10px;
 }
 
+.image{
+    width: 100%;
+}
 
