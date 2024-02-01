@@ -12,65 +12,60 @@ $descricao = filter_var($_POST['descricao'], FILTER_SANITIZE_SPECIAL_CHARS);
 
 $dirUpload = "upload/";
 
-if(!is_dir($dirUpload)){
-    echo "<p class='alert alert-danger'> Diretório não encontrado, falha na atualização </p>";
-}   else{
+if(!empty($_FILES['arquivo'])){
+    // SE NÃO ESTIVER VAZIA
 
-    if(!empty($_FILES['arquivo'])){
-        $extensaoArquivo = strrchr($_FILES['arquivo']['name'], '.');             // FAZENDO UMA BUSCA PELA EXTENSÃO
-        $novoNomeArquivo = md5($_FILES['arquivo']['name']).$extensaoArquivo;     // Gera novo nome para o arquivo
+    $extensaoArquivo = strrchr($_FILES['arquivo']['name'], '.');             // FAZENDO UMA BUSCA PELA EXTENSÃO
+    $novoNomeArquivo = md5($_FILES['arquivo']['name']).$extensaoArquivo;     // Gera novo nome para o arquivo
+
+    $nameFileServer = $dirUpload.$novoNomeArquivo;
+    move_uploaded_file($_FILES['arquivo']['tmp_name'], $nameFileServer);
+
+    
+        $sqlUpdate = "UPDATE produtos 
+                         SET nome= :nome, 
+                             arquivo= :arquivo, 
+                             estado=:estado,
+                             preco= :preco, 
+                             descricao= :descricao 
+                       WHERE id =:id";
+
+        $update = $conexao->prepare($sqlUpdate);
+
+        $update->bindValue(':id', $id);
+        $update->bindValue(':nome', $nome);
+        $update->bindValue(':arquivo', $dirUpload.$novoNomeArquivo);
+        $update->bindValue(':estado', $estado);
+        $update->bindValue(':preco', $preco);
+        $update->bindValue(':descricao', $descricao);
         
-        $nameFileServer = $dirUpload.$novoNomeArquivo;
-        move_uploaded_file($_FILES['arquivo']['tmp_name'], $nameFileServer);
+
+        $update->execute();
+
+    echo "<p class='alert alert-success'> Produto atualizado com sucesso! </p>";
+}   else {
+       /* -- UPDATE -- */
+       $sqlUpdate = "UPDATE produtos 
+                        SET nome= :nome, 
+                            estado=:estado,
+                            preco= :preco, 
+                            descricao= :descricao 
+                      WHERE id =:id";
 
 
-        /* -- UPDATE -- */
-            $sqlUpdate = "UPDATE produtos 
-                             SET nome= :nome, 
-                                 arquivo= :arquivo, 
-                                 estado=:estado,
-                                 preco= :preco, 
-                                 descricao= :descricao 
-                           WHERE id =:id";
+        $update = $conexao->prepare($sqlUpdate);
 
-            $update = $conexao->prepare($sqlUpdate);
+        $update->bindValue(':id', $id);
+        $update->bindValue(':nome', $nome);
+        $update->bindValue(':estado', $estado);
+        $update->bindValue(':preco', $preco);
+        $update->bindValue(':descricao', $descricao);
 
-            $update->bindValue(':id', $id);
-            $update->bindValue(':nome', $nome);
-            $update->bindValue(':arquivo', $dirUpload.$novoNomeArquivo);
-            $update->bindValue(':estado', $estado);
-            $update->bindValue(':preco', $preco);
-            $update->bindValue(':descricao', $descricao);
-            
 
-            $update->execute();
-
-        echo "<p class='alert alert-success'> Produto atualizado com sucesso! </p>";
-    }   else{
-       
-             $sqlUpdate = "UPDATE produtos 
-                             SET nome= :nome, 
-                                 
-                                 estado=:estado,
-                                 preco= :preco, 
-                                 descricao= :descricao 
-                           WHERE id =:id";
-
-            $update = $conexao->prepare($sqlUpdate);
-
-            $update->bindValue(':id', $id);
-            $update->bindValue(':nome', $nome);
-            $update->bindValue(':estado', $estado);
-            $update->bindValue(':preco', $preco);
-            $update->bindValue(':descricao', $descricao);
-            
-
-            $update->execute();
+        $update->execute();
 
         echo "<p class='alert alert-success'> Produto atualizado com sucesso! </p>";
-    }
-
-}
+        }
 
 // $dirUpload = "upload/";
 

@@ -347,6 +347,7 @@
         $("#deleteProduct").modal('show');             // ABRE O MODAL
 
         $(".delProduct").on("click", function(e){
+            e.preventDefault();
             $.ajax({
                 url: 'delete.php',
                 type: 'POST',
@@ -354,7 +355,6 @@
                 success: function(deleteData){
                     $(".message").show();
                     $(".message").html(deleteData);
-                    
                 },
                 error: function(deleteData){
                     $(".message").show();
@@ -393,8 +393,6 @@
         preco.value='';
         arquivo.value='';
     }
-
-   
 
     $(document).ready(function()
     {
