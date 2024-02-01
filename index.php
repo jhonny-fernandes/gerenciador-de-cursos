@@ -166,7 +166,7 @@
                                     <div class="col-md-6 mb-3">
                                         <label>Arquivo</label> <br>
                                         <label for="arquivo" class="btn btn-dark btn-sm ark"> <p class="ark-text"> Selecione </p> </label>
-                                        <input type="file" id="arquivo" class="arquiv" name="arquivo" >
+                                        <input type="file" id="arquivo" class="arquiv" name="arquivo" hidden>
                                     </div>
 
                                 <div class="col-md-12 mb-3">

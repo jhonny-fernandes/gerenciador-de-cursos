@@ -20,7 +20,7 @@ if ($verifyNameExec) {
     $total = $result['total'];
 
     if ($total >= 1) {
-        echo "<p class='alert alert-danger'> Uuups, o curso já existe em sua base de dados! </p>";
+        echo "<p class='alert alert-danger'> Opa, o curso já existe em sua base de dados! </p>";
     } else {
        if(!is_dir($dirUpload)){    
             echo "<p class='alert alert-danger'> Diretório não encontrado, falha no upload </p>";
