@@ -96,8 +96,8 @@
                             <div class="col-md-6 mb-3">
                                 <label for="capa">Arquivo</label><br>
                                 
-                                <input type="file" id="arquiv" name="arquivo" class="arquiv" hidden>
-                                <label for="arquivo" class="btn btn-dark btn-sm ark"> <p class="img-text"> Selecione </p> </label>
+                                <input type="file" id="arquiv" name="arquivo" class="arquiv">
+                                <!-- <label for="arquivo" class="btn btn-dark btn-sm ark"> <p class="img-text"> Selecione </p> </label> -->
                             </div>
 
                             <div class="col-md-12 mb-3">
@@ -166,7 +166,7 @@
                                     <div class="col-md-6 mb-3">
                                         <label>Arquivo</label> <br>
                                         <label for="arquivo" class="btn btn-dark btn-sm ark"> <p class="ark-text"> Selecione </p> </label>
-                                        <input type="file" id="arquivo" class="arquiv" name="arquivo" hidden>
+                                        <input type="file" id="arquivo" class="arquiv" name="arquivo" >
                                     </div>
 
                                 <div class="col-md-12 mb-3">
