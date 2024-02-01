@@ -7,6 +7,10 @@ $estado    = filter_var($_POST['estado'], FILTER_SANITIZE_SPECIAL_CHARS);
 $preco     = filter_var($_POST['preco'], FILTER_SANITIZE_NUMBER_INT);
 $descricao = filter_var($_POST['descricao'], FILTER_SANITIZE_SPECIAL_CHARS);
 
+// $verifyNameExist = "SELECT *FROM produtos WHERE nome=$nome LIMIT 1";
+// $verifyNameExistExec =$conexao->query($verifyNameExist);
+// var_dump($verifyNameExistExec);
+
 $dirUpload = "upload/";
 
 $extensaoArquivo = strrchr($_FILES['arquivo']['name'], '.');             // FAZENDO UMA BUSCA PELA EXTENSÃO
