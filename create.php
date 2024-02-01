@@ -12,7 +12,7 @@ $dirUpload = "upload/";
 $extensaoArquivo = strrchr($_FILES['arquivo']['name'], '.');             // FAZENDO UMA BUSCA PELA EXTENSÃO
 $novoNomeArquivo = md5($_FILES['arquivo']['name']).$extensaoArquivo;     // Gera novo nome para o arquivo
 
-$verifyName = "SELECT COUNT(*) as total FROM produtos WHERE nome = 'Elementor Builder'";
+$verifyName = "SELECT COUNT(*) as total FROM produtos WHERE nome = '$nome'";
 $verifyNameExec = $conexao->query($verifyName);
 
 if ($verifyNameExec) {
@@ -20,7 +20,7 @@ if ($verifyNameExec) {
     $total = $result['total'];
 
     if ($total >= 1) {
-        echo "<p class='alert alert-danger'> Uuups, o curso já existe em </p>";
+        echo "<p class='alert alert-danger'> Uuups, o curso já existe em sua base de dados! </p>";
     } else {
        if(!is_dir($dirUpload)){    
             echo "<p class='alert alert-danger'> Diretório não encontrado, falha no upload </p>";

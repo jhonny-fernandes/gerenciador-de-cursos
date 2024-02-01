@@ -96,7 +96,8 @@
                             <div class="col-md-6 mb-3">
                                 <label for="capa">Arquivo</label><br>
                                 
-                                <input type="file" id="arquiv" name="arquivo" class="arquiv">
+                                <input type="file" id="arquiv" name="arquivo" class="arquiv" hidden>
+                                <label for="arquivo" class="btn btn-dark btn-sm ark"> <p class="img-text"> Selecione </p> </label>
                             </div>
 
                             <div class="col-md-12 mb-3">
@@ -164,8 +165,8 @@
 
                                     <div class="col-md-6 mb-3">
                                         <label>Arquivo</label> <br>
-                                        <label for="arquivo" class="btn btn-dark btn-sm ark"> Selecione </label>
-                                        <input type="file" id="arquivo" class="arquiv" name="arquivo">
+                                        <label for="arquivo" class="btn btn-dark btn-sm ark"> <p class="ark-text"> Selecione </p> </label>
+                                        <input type="file" id="arquivo" class="arquiv" name="arquivo" hidden>
                                     </div>
 
                                 <div class="col-md-12 mb-3">
@@ -293,13 +294,14 @@
                 arquivo.src     = listResponse.arquivo;
                 arquivo.title   = listResponse.nome;
                 
-                $(".ark").text(listResponse.arquivo);
+                $(".ark-text").text(listResponse.arquivo);
                
                 $("#editProcuts").modal('show');  
                
             }
         });
 
+        // AQUI VAI APENAS ATUALIZAR A STRING
         $(".btn-salvar").on("click", function(e)
         {
             e.preventDefault();
