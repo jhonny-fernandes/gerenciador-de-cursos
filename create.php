@@ -55,3 +55,6 @@ if ($verifyNameExec) {
 }  
     }
 }
+
+// $extensaoArquivo = strrchr($_FILES['arquivo']['name'], '.');             // FAZENDO UMA BUSCA PELA EXTENSÃO
+// $novoNomeArquivo = md5($_FILES['arquivo']['name']).$extensaoArquivo;     // Gera novo nome para o arquivo
